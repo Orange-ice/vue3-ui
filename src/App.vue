@@ -1,15 +1,14 @@
 <template>
-  <span>hello Vue3</span>
-  <Ice/>
+  <header>
+    <span>导航</span> | <router-link to="/">ice</router-link> | <router-link to="/ice">ice2</router-link>
+  </header>
+  <br/>
+  <router-view/>
 </template>
 
 <script>
-import Ice from './components/Ice.vue'
 
 export default {
-  name: 'App',
-  components: {
-    Ice:Ice
-  }
+  name: 'App'
 }
 </script>
