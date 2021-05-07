@@ -5,8 +5,8 @@
       <h1>Ice UI</h1>
       <h2>一个厉害的 UI 框架</h2>
       <p class="action">
-        <a>Github</a>
-        <a>开始</a>
+        <a href="https://github.com/" target="_blank">Github</a>
+        <router-link to="/doc">开始</router-link>
       </p>
     </div>
   </div>
