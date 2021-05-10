@@ -33,10 +33,31 @@ $radius: 4px;
   background: #ffffff;
   color: $color;
   border: solid 1px $border-color;
+  border-radius: $radius;
   box-shadow: 0 1px 0 fade-out(black, 0.95);
   //& + & {margin-left: 8px;}
   &:hover, &:focus {color: $blue;border-color: $blue;}
   &:focus {outline: none;}
   &::-moz-focus-inner {border: 0;}
+
+  &.ice-theme-link{
+    border-color: transparent;
+    box-shadow: none;
+    color: $blue;
+    background: none;
+    &:hover, &:focus{
+      color: lighten($blue, 10%);
+    }
+  }
+  &.ice-theme-text{
+    border-color: transparent;
+    box-shadow: none;
+    color: inherit;
+    background: none;
+    &:focus, &:hover{
+      background: darken(white, 5%);
+    }
+  }
+
 }
 </style>
