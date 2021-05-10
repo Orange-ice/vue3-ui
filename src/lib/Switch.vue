@@ -30,21 +30,27 @@ button{
   border-radius: $h/2;
   position: relative;
   cursor: pointer;
-}
-span{
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: $h2;
-  height: $h2;
-  border-radius: $h2/2;
-  background: #ffffff;
-  transition: left 250ms;
-}
-button.checked{
-  background: #2d8cf0;
-  > span {
-    left: calc(100% - #{$h2} - 2px);
+  span{
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: $h2;
+    height: $h2;
+    border-radius: $h2/2;
+    background: #ffffff;
+    transition: all 250ms;
+  }
+  &.checked{
+    background: #2d8cf0;
+    > span {
+      left: calc(100% - #{$h2} - 2px);
+    }
+  }
+  &:active{
+    > span{width: $h2 + 4px;}
+  }
+  &.checked:active{
+    >span{width: $h2 + 4px;margin-right: -4px;}
   }
 }
 </style>
