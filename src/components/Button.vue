@@ -22,6 +22,9 @@
   <Button level="warning" disabled>Warning</Button>
   <Button level="error" disabled>Error</Button>
   <Button level="info" disabled>Info</Button>
+
+  <h3>Button Loading 示例</h3>
+  <Button loading>Loading</Button>
 </template>
 
 <script lang="ts">
