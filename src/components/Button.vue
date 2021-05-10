@@ -8,6 +8,12 @@
   <Button size="large">Large</Button>
   <Button>Normal</Button>
   <Button size="small">Small</Button>
+  <h3>Button level 示例</h3>
+  <Button level="primary">Primary</Button>
+  <Button level="success">Success</Button>
+  <Button level="warning">Warning</Button>
+  <Button level="error">Error</Button>
+  <Button level="info">Info</Button>
 </template>
 
 <script lang="ts">
