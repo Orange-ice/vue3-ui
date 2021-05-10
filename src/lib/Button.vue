@@ -1,5 +1,5 @@
 <template>
-  <button class="ice-button" :class="classes">
+  <button class="ice-button" :class="classes" :disabled="disabled">
     <slot />
   </button>
 </template>
@@ -17,7 +17,11 @@ export default {
       type: String,
       default: 'normal'
     },
-    level: String
+    level: String,
+    disabled: {
+      type: Boolean,
+      default: false
+    }
   },
   setup(props) {
     const { theme, size, level } = props;
@@ -44,6 +48,7 @@ $success: #19be6b;
 $warning: #ff9900;
 $error: #ed4014;
 $info: #909399;
+$disabled: #c5d0e0;
 .ice-button{
   box-sizing: border-box;
   height: $h;
@@ -64,22 +69,13 @@ $info: #909399;
   &:focus {outline: none;}
   &::-moz-focus-inner {border: 0;}
 
-  &.ice-theme-link{
+  &.ice-theme-text{
     border-color: transparent;
     box-shadow: none;
     color: $blue;
     background: none;
-    &:hover, &:focus{
-      color: lighten($blue, 10%);
-    }
-  }
-  &.ice-theme-text{
-    border-color: transparent;
-    box-shadow: none;
-    color: inherit;
-    background: none;
     &:focus, &:hover{
-      background: darken(white, 5%);
+      color: lighten($blue, 10%);
     }
   }
 
@@ -95,7 +91,7 @@ $info: #909399;
   }
 
   &.ice-theme-button{
-    &.ice-level-primary{
+    &.ice-level-primary:not([disabled]){
       background: $primary;
       color: white;
       border-color: $primary;
@@ -104,7 +100,7 @@ $info: #909399;
         border-color: darken($primary, 8%);
       }
     }
-    &.ice-level-success{
+    &.ice-level-success:not([disabled]){
       background: $success;
       color: white;
       border-color: $success;
@@ -113,7 +109,7 @@ $info: #909399;
         border-color: darken($success, 8%);
       }
     }
-    &.ice-level-warning{
+    &.ice-level-warning:not([disabled]){
       background: $warning;
       color: white;
       border-color: $warning;
@@ -122,7 +118,7 @@ $info: #909399;
         border-color: darken($warning, 8%);
       }
     }
-    &.ice-level-error{
+    &.ice-level-error:not([disabled]){
       background: $error;
       color: white;
       border-color: $error;
@@ -131,7 +127,7 @@ $info: #909399;
         border-color: darken($error, 8%);
       }
     }
-    &.ice-level-info{
+    &.ice-level-info:not([disabled]){
       background: $info;
       color: white;
       border-color: $info;
@@ -139,6 +135,45 @@ $info: #909399;
         background: darken($info, 8%);
         border-color: darken($info, 8%);
       }
+    }
+  }
+
+  &.ice-theme-button{
+    &[disabled]{
+      cursor: not-allowed;
+      color: $disabled;
+      &:hover{border-color: $disabled}
+    }
+    &.ice-level-primary[disabled]{
+      background: lighten($primary, 20%);
+      color: white;
+      border-color: lighten($primary, 20%);
+    }
+    &.ice-level-success[disabled] {
+      background: lighten($success, 20%);
+      color: white;
+      border-color: lighten($success, 20%);
+    }
+    &.ice-level-warning[disabled] {
+      background: lighten($warning, 20%);
+      color: white;
+      border-color: lighten($warning, 20%);
+    }
+    &.ice-level-error[disabled] {
+      background: lighten($error, 20%);
+      color: white;
+      border-color: lighten($error, 20%);
+    }
+    &.ice-level-info[disabled] {
+      background: lighten($info, 20%);
+      color: white;
+      border-color: lighten($info, 20%);
+    }
+  }
+  &.ice-theme-text{
+    &[disabled]{
+      cursor: not-allowed;
+      color: $disabled;
     }
   }
 

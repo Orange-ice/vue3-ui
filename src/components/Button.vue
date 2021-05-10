@@ -1,8 +1,6 @@
 <template>
   <h3>Button theme 示例</h3>
-  <Button>你好</Button>
   <Button theme="button">你好</Button>
-  <Button theme="link">你好</Button>
   <Button theme="text">你好</Button>
   <h3>Button size 示例</h3>
   <Button size="large">Large</Button>
@@ -14,6 +12,16 @@
   <Button level="warning">Warning</Button>
   <Button level="error">Error</Button>
   <Button level="info">Info</Button>
+
+  <h3>Button disabled 示例</h3>
+  <Button disabled>Disabled</Button>
+  <Button theme="text" disabled>Disabled</Button>
+  <br/>
+  <Button level="primary" disabled>Primary</Button>
+  <Button level="success" disabled>Success</Button>
+  <Button level="warning" disabled>Warning</Button>
+  <Button level="error" disabled>Error</Button>
+  <Button level="info" disabled>Info</Button>
 </template>
 
 <script lang="ts">
