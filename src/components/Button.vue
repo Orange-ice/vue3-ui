@@ -12,3 +12,10 @@ export default {
   components: { Button }
 }
 </script>
+
+<style lang="scss" scoped>
+button{
+  margin-right: 16px;
+  margin-top: 10px;
+}
+</style>

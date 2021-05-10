@@ -14,3 +14,29 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+$h:32px;
+$border-color: #d9d9d9;
+$color: #333;
+$blue: #40a9ff;
+$radius: 4px;
+.ice-button{
+  box-sizing: border-box;
+  height: $h;
+  padding: 0 12px;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  background: #ffffff;
+  color: $color;
+  border: solid 1px $border-color;
+  box-shadow: 0 1px 0 fade-out(black, 0.95);
+  //& + & {margin-left: 8px;}
+  &:hover, &:focus {color: $blue;border-color: $blue;}
+  &:focus {outline: none;}
+  &::-moz-focus-inner {border: 0;}
+}
+</style>
