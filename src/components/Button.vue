@@ -24,13 +24,21 @@
   <Button level="info" disabled>Info</Button>
 
   <h3>Button Loading 示例</h3>
-  <Button loading>Loading</Button>
+  <Button :loading="loading" @click="toggle">Loading</Button>
 </template>
 
 <script lang="ts">
 import Button from '../lib/Button.vue'
+import { ref } from 'vue';
 export default {
-  components: { Button }
+  components: { Button },
+  setup() {
+    const loading = ref(true);
+    const toggle = () => {
+      loading.value = !loading.value
+    }
+    return { loading, toggle }
+  }
 }
 </script>
 
