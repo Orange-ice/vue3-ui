@@ -1,16 +1,32 @@
 <template>
-  <button class="ice-button" :class="`ice-theme-${theme}`">
+  <button class="ice-button" :class="classes">
     <slot />
   </button>
 </template>
 
 <script lang="ts">
+import { computed } from 'vue';
+
 export default {
   props: {
     theme: {
       type: String,
       default: 'button'
+    },
+    size: {
+      type: String,
+      default: 'normal'
     }
+  },
+  setup(props) {
+    const { theme, size } = props;
+    const classes = computed(() => {
+      return {
+        [`ice-theme-${theme}`]: theme,
+        [`ice-size-${size}`]: size,
+      }
+    })
+    return { classes };
   }
 }
 </script>
@@ -57,6 +73,17 @@ $radius: 4px;
     &:focus, &:hover{
       background: darken(white, 5%);
     }
+  }
+
+  &.ice-size-large{
+    font-size: 20px;
+    height: 40px;
+    padding: 0 16px;
+  }
+  &.ice-size-small{
+    font-size: 12px;
+    height: 24px;
+    padding: 0 8px;
   }
 
 }

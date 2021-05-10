@@ -1,9 +1,13 @@
 <template>
-  <h3>Button 示例</h3>
+  <h3>Button theme 示例</h3>
   <Button>你好</Button>
   <Button theme="button">你好</Button>
   <Button theme="link">你好</Button>
   <Button theme="text">你好</Button>
+  <h3>Button size 示例</h3>
+  <Button size="large">Large</Button>
+  <Button>Normal</Button>
+  <Button size="small">Small</Button>
 </template>
 
 <script lang="ts">
@@ -14,6 +18,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h3{margin-top: 40px;}
 button{
   margin-right: 16px;
   margin-top: 10px;
