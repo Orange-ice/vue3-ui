@@ -38,6 +38,7 @@ span{
   height: $h2;
   border-radius: $h2/2;
   background: #ffffff;
+  transition: left 250ms;
 }
 button.checked{
   background: #2d8cf0;
