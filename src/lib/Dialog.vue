@@ -1,28 +1,66 @@
 <template>
-  <div class="ice-dialog-overlay"></div>
-  <div class="ice-dialog-wrapper">
-    <div class="ice-dialog">
-      <header>
-        Title
-        <span class="ice-dialog-close"></span>
-      </header>
-      <main>
-        <p>content1</p>
-        <p>content2</p>
-      </main>
-      <footer>
-        <Button level="primary">确定</Button>
-        <Button>取消</Button>
-      </footer>
+  <template v-if="visible">
+    <div class="ice-dialog-overlay" @click="onCloseOnClickOverlay"></div>
+    <div class="ice-dialog-wrapper">
+      <div class="ice-dialog">
+        <header>
+          Title
+          <span class="ice-dialog-close" @click="close"></span>
+        </header>
+        <main>
+          <p>content1</p>
+          <p>content2</p>
+        </main>
+        <footer>
+          <Button level="primary" @click="onConfirm">确定</Button>
+          <Button @click="onCancel">取消</Button>
+        </footer>
+      </div>
     </div>
-  </div>
+  </template>
 </template>
 
 <script lang="ts">
 import Button from './Button.vue';
 
 export default {
-  components: { Button }
+  props: {
+    visible: {
+      type: Boolean,
+      default: false
+    },
+    closeOnClickOverlay: {
+      type: Boolean,
+      default: true
+    },
+    confirm: {
+      type: Function
+    },
+    cancel: {
+      type: Function
+    }
+  },
+  components: { Button },
+  setup (props, context) {
+    const close = () => {
+      context.emit('update:visible', false);
+    };
+    const onCloseOnClickOverlay = () => {
+      if (props.closeOnClickOverlay) {
+        close();
+      }
+    };
+    const onConfirm = () => {
+      if (props.confirm?.()) {
+        close();
+      }
+    };
+    const onCancel = () => {
+      context.emit('cancel');
+      close()
+    }
+    return { close, onCloseOnClickOverlay, onConfirm, onCancel };
+  }
 };
 </script>
 
@@ -30,10 +68,10 @@ export default {
 $radius: 4px;
 $border-color: #d9d9d9;
 
-.ice-dialog{
+.ice-dialog {
   background: white;
   border-radius: $radius;
-  box-shadow: 0 0 3px fade-out(black,0.5);
+  box-shadow: 0 0 3px fade-out(black, 0.5);
   min-width: 15em;
   max-width: 90%;
   &-overlay {
@@ -54,7 +92,7 @@ $border-color: #d9d9d9;
     z-index: 11;
   }
 
-  > header{
+  > header {
     padding: 12px 16px;
     border-bottom: 1px solid $border-color;
     display: flex;
@@ -63,24 +101,24 @@ $border-color: #d9d9d9;
     font-size: 20px;
   }
 
-  > main{
+  > main {
     padding: 12px 16px;
   }
 
-  > footer{
+  > footer {
     border-top: solid 1px $border-color;
     padding: 12px 16px;
     text-align: right;
-    >button:first-child{margin-right: 20px;}
+    > button:first-child {margin-right: 20px;}
   }
 
-  &-close{
+  &-close {
     position: relative;
     display: inline-block;
     width: 16px;
     height: 16px;
     cursor: pointer;
-    &::before, &::after{
+    &::before, &::after {
       content: '';
       position: absolute;
       height: 1px;
@@ -89,10 +127,10 @@ $border-color: #d9d9d9;
       top: 50%;
       left: 50%;
     }
-    &::before{
-      transform: translate(-50%,-50%) rotate(-45deg);
+    &::before {
+      transform: translate(-50%, -50%) rotate(-45deg);
     }
-    &::after{
+    &::after {
       transform: translate(-50%, -50%) rotate(45deg);
     }
   }
