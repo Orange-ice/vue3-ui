@@ -57,7 +57,7 @@ export default {
       }
     };
     const onCancel = () => {
-      context.emit('cancel');
+      props.cancel?.()
       close()
     }
     return { close, onCloseOnClickOverlay, onConfirm, onCancel };
