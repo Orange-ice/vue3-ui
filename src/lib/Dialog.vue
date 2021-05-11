@@ -1,22 +1,23 @@
 <template>
   <template v-if="visible">
-    <div class="ice-dialog-overlay" @click="onCloseOnClickOverlay"></div>
-    <div class="ice-dialog-wrapper">
-      <div class="ice-dialog">
-        <header>
-          <slot name="title" />
-          {{title}}
-          <span class="ice-dialog-close" @click="close"></span>
-        </header>
-        <main>
-          <slot name="content" />
-        </main>
-        <footer>
-          <Button level="primary" @click="onConfirm">确定</Button>
-          <Button @click="onCancel">取消</Button>
-        </footer>
+    <Teleport to="body">
+      <div class="ice-dialog-overlay" @click="onCloseOnClickOverlay"></div>
+      <div class="ice-dialog-wrapper">
+        <div class="ice-dialog">
+          <header>
+            <slot name="title" />
+            <span class="ice-dialog-close" @click="close"></span>
+          </header>
+          <main>
+            <slot name="content" />
+          </main>
+          <footer>
+            <Button level="primary" @click="onConfirm">确定</Button>
+            <Button @click="onCancel">取消</Button>
+          </footer>
+        </div>
       </div>
-    </div>
+    </Teleport>
   </template>
 </template>
 
