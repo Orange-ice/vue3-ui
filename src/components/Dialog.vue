@@ -2,7 +2,15 @@
   <div>
     Dialog 示例
     <Button @click="toggle">Toggle</Button>
-    <Dialog v-model:visible="visible" :confirm="confirm" :cancel="cancel"></Dialog>
+    <Dialog v-model:visible="visible" :confirm="confirm" :cancel="cancel">
+      <template v-slot:title>
+        <p style="color: red;">标题</p>
+      </template>
+      <template v-slot:content>
+        <div>Dialog 组件</div>
+        <div>hello</div>
+      </template>
+    </Dialog>
   </div>
 </template>
 

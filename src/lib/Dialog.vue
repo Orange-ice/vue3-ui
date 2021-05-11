@@ -4,12 +4,12 @@
     <div class="ice-dialog-wrapper">
       <div class="ice-dialog">
         <header>
-          Title
+          <slot name="title" />
+          {{title}}
           <span class="ice-dialog-close" @click="close"></span>
         </header>
         <main>
-          <p>content1</p>
-          <p>content2</p>
+          <slot name="content" />
         </main>
         <footer>
           <Button level="primary" @click="onConfirm">确定</Button>
