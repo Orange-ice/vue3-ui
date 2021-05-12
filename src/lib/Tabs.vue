@@ -7,14 +7,14 @@
           v-for="(t, index) in titles"
           :key="index"
           @click="changeSelected(t)"
-          :ref="el => {if(el) navItems[index] = el }"
+          :ref="el => {if(t===selected) selectedItem = el }"
       >
-        {{t}}
+        {{ t }}
       </div>
       <div class="ice-tabs-nav-indicator" ref="indicator"></div>
     </div>
     <div class="ice-tabs-content">
-      <component class="ice-tabs-content-item" :is="current" :key="current.props.title" />
+      <component class="ice-tabs-content-item" :is="current" :key="current.props.title"/>
     </div>
   </div>
 </template>
@@ -28,38 +28,36 @@ export default {
     selected: String
   },
   setup (props, context) {
-    const navItems = ref<HTMLDivElement[]>([]);
+    const selectedItem = ref<HTMLDivElement>(null);
     const container = ref<HTMLDivElement>(null);
     const indicator = ref<HTMLDivElement>(null);
     const defaults = context.slots.default();
     defaults.forEach(tag => {
       if (tag.type !== Tab) {
-        throw Error('Tabs 的子标签必须是 Tab')
+        throw Error('Tabs 的子标签必须是 Tab');
       }
     });
     const current = computed(() => {
       return defaults.filter(tag => {
-        return tag.props.title === props.selected
-      })[0]
-    })
+        return tag.props.title === props.selected;
+      })[0];
+    });
     const titles = defaults.map(tag => {
-      return tag.props.title
-    })
+      return tag.props.title;
+    });
     const changeSelected = (title: string) => {
-      context.emit('update:selected', title)
-    }
+      context.emit('update:selected', title);
+    };
     const location = () => {
-      const divs = navItems.value
-      const result = divs.filter(div => div.classList.contains('selected'))[0];
-      const { width, left: resultLeft } = result.getBoundingClientRect();
+      const { width, left: resultLeft } = selectedItem.value.getBoundingClientRect();
       indicator.value.style.width = width + 'px';
       const { left: containerLeft } = container.value.getBoundingClientRect();
       const left = resultLeft - containerLeft;
-      indicator.value.style.left = left + 'px'
-    }
+      indicator.value.style.left = left + 'px';
+    };
     onMounted(location);
-    onUpdated(location)
-    return { defaults, titles, changeSelected, current, container, indicator, navItems };
+    onUpdated(location);
+    return { defaults, titles, changeSelected, current, container, indicator, selectedItem };
   }
 };
 </script>
@@ -69,22 +67,22 @@ $blue: #40a9ff;
 $color: #333;
 $border-color: #d9d9d9;
 
-.ice-tabs{
-  &-nav{
+.ice-tabs {
+  &-nav {
     display: flex;
     color: $color;
     border-bottom: 1px solid $border-color;
     position: relative;
 
-    &-item{
+    &-item {
       padding: 8px 0;
       margin: 0 16px;
       cursor: pointer;
-      &:first-child{margin-left: 0;}
-      &.selected{color: $blue;}
+      &:first-child {margin-left: 0;}
+      &.selected {color: $blue;}
     }
 
-    &-indicator{
+    &-indicator {
       position: absolute;
       height: 3px;
       width: 100px;
@@ -95,7 +93,7 @@ $border-color: #d9d9d9;
     }
   }
 
-  &-content{
+  &-content {
     padding: 8px 0;
   }
 }
