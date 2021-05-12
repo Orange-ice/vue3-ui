@@ -1,18 +1,30 @@
 <template>
   <div class="ice-tabs">
     <div class="ice-tabs-nav">
-      <div class="ice-tabs-nav-item" v-for="(t, index) in titles" :key="index">{{t}}</div>
+      <div
+          class="ice-tabs-nav-item"
+          :class="{selected: t===selected}"
+          v-for="(t, index) in titles"
+          :key="index"
+          @click="changeSelected(t)"
+      >
+        {{t}}
+      </div>
     </div>
     <div class="ice-tabs-content">
-      <component class="ice-tabs-content-item" v-for="(c, index) in defaults" :is="c" :key="index" />
+      <component class="ice-tabs-content-item" :is="current" :key="current.props.title" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Tab from '../lib/Tab.vue';
+import { computed } from 'vue';
 
 export default {
+  props: {
+    selected: String
+  },
   setup (props, context) {
     const defaults = context.slots.default();
     defaults.forEach(tag => {
@@ -20,10 +32,18 @@ export default {
         throw Error('Tabs 的子标签必须是 Tab')
       }
     });
+    const current = computed(() => {
+      return defaults.filter(tag => {
+        return tag.props.title === props.selected
+      })[0]
+    })
     const titles = defaults.map(tag => {
       return tag.props.title
     })
-    return { defaults, titles };
+    const changeSelected = (title: string) => {
+      context.emit('update:selected', title)
+    }
+    return { defaults, titles, changeSelected, current };
   }
 };
 </script>
