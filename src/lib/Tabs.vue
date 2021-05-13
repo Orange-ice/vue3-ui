@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import Tab from '../lib/Tab.vue';
-import { computed, onMounted, onUpdated, ref } from 'vue';
+import { computed, onMounted, onUpdated, ref, watchEffect } from 'vue';
 
 export default {
   props: {
@@ -48,15 +48,22 @@ export default {
     const changeSelected = (title: string) => {
       context.emit('update:selected', title);
     };
-    const location = () => {
-      const { width, left: resultLeft } = selectedItem.value.getBoundingClientRect();
-      indicator.value.style.width = width + 'px';
-      const { left: containerLeft } = container.value.getBoundingClientRect();
-      const left = resultLeft - containerLeft;
-      indicator.value.style.left = left + 'px';
-    };
-    onMounted(location);
-    onUpdated(location);
+    // const location = () => {
+    //   const { width, left: resultLeft } = selectedItem.value.getBoundingClientRect();
+    //   indicator.value.style.width = width + 'px';
+    //   const { left: containerLeft } = container.value.getBoundingClientRect();
+    //   const left = resultLeft - containerLeft;
+    //   indicator.value.style.left = left + 'px';
+    // };
+    onMounted(() => {
+      watchEffect(() => {
+        const { width, left: resultLeft } = selectedItem.value.getBoundingClientRect();
+        indicator.value.style.width = width + 'px';
+        const { left: containerLeft } = container.value.getBoundingClientRect();
+        const left = resultLeft - containerLeft;
+        indicator.value.style.left = left + 'px';
+      })
+    });
     return { defaults, titles, changeSelected, current, container, indicator, selectedItem };
   }
 };
